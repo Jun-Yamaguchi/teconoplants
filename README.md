@@ -126,9 +126,9 @@ sudo httpd -t && sudo systemctl reload httpd
 Basic認証を有効にする場合（`wordpress.conf` / `wordpress-le-ssl.conf` で設定済み）:
 
 ```bash
-sudo htpasswd -c /etc/httpd/.htpasswd tecono_admin
+sudo htpasswd -c /var/www/vhosts/tecono/.htpasswd tecono_admin
 # 2人目以降は -c を外す
-# sudo htpasswd /etc/httpd/.htpasswd another_user
+# sudo htpasswd /var/www/vhosts/tecono/.htpasswd another_user
 
 sudo httpd -t && sudo systemctl reload httpd
 ```
