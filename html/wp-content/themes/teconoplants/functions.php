@@ -16,19 +16,23 @@ require_once get_template_directory() . '/inc/shop-info.php';
  */
 function teconoplants_enqueue_assets() {
 	$theme_version = wp_get_theme()->get( 'Version' );
+	$main_css_path = get_template_directory() . '/assets/css/main.css';
+	$hero_js_path  = get_template_directory() . '/assets/js/hero-slider.js';
+	$main_css_ver  = file_exists( $main_css_path ) ? (string) filemtime( $main_css_path ) : $theme_version;
+	$hero_js_ver   = file_exists( $hero_js_path ) ? (string) filemtime( $hero_js_path ) : $theme_version;
 
 	wp_enqueue_style(
 		'teconoplants-main',
 		get_template_directory_uri() . '/assets/css/main.css',
 		array(),
-		$theme_version
+		$main_css_ver
 	);
 
 	wp_enqueue_script(
 		'teconoplants-hero-slider',
 		get_template_directory_uri() . '/assets/js/hero-slider.js',
 		array(),
-		$theme_version,
+		$hero_js_ver,
 		array(
 			'in_footer' => true,
 			'strategy'  => 'defer',
@@ -42,12 +46,14 @@ add_action( 'wp_enqueue_scripts', 'teconoplants_enqueue_assets' );
  */
 function teconoplants_editor_assets() {
 	$theme_version = wp_get_theme()->get( 'Version' );
+	$main_css_path = get_template_directory() . '/assets/css/main.css';
+	$main_css_ver  = file_exists( $main_css_path ) ? (string) filemtime( $main_css_path ) : $theme_version;
 
 	wp_enqueue_style(
 		'teconoplants-editor',
 		get_template_directory_uri() . '/assets/css/main.css',
 		array(),
-		$theme_version
+		$main_css_ver
 	);
 }
 add_action( 'enqueue_block_editor_assets', 'teconoplants_editor_assets' );
