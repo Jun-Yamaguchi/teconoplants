@@ -216,6 +216,28 @@
 	text-decoration: underline;
 }
 
+/* Home news */
+.home-news {
+	padding: clamp(44px, 7vw, 72px) 16px;
+	background: var(--wp--preset--color--base, #fafafa);
+}
+
+.home-news__inner {
+	max-width: 960px;
+	margin: 0 auto;
+}
+
+.home-news__heading {
+	margin: 0 0 12px;
+	font-size: clamp(1.6rem, 3.8vw, 2.1rem);
+	color: var(--tecono-teal-dark);
+}
+
+.home-news-list {
+	margin: 0;
+	padding: 0;
+}
+
 /* Home Instagram feed */
 .home-instagram {
 	padding: clamp(44px, 7vw, 72px) 16px;
