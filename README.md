@@ -123,6 +123,16 @@ sudo cp config/httpd/wordpress-le-ssl.conf /etc/httpd/conf.d/wordpress-le-ssl.co
 sudo httpd -t && sudo systemctl reload httpd
 ```
 
+Basic認証を有効にする場合（`wordpress.conf` / `wordpress-le-ssl.conf` で設定済み）:
+
+```bash
+sudo htpasswd -c /etc/httpd/.htpasswd tecono_admin
+# 2人目以降は -c を外す
+# sudo htpasswd /etc/httpd/.htpasswd another_user
+
+sudo httpd -t && sudo systemctl reload httpd
+```
+
 管理画面の **設定 → 一般** でもサイト URL が HTTPS になっているか確認してください（`.env` の `WORDPRESS_HOME` / `WORDPRESS_SITEURL` と一致させると安全です）。
 
 ### 5. 503 / 接続できない場合
