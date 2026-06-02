@@ -15,8 +15,7 @@ git fetch origin
 git checkout "$BRANCH"
 git pull origin "$BRANCH"
 
-echo ">>> Pull WordPress Docker image"
-$DOCKER_COMPOSE -f "$COMPOSE_FILE" pull wordpress
+echo ">>> Skip pulling WordPress image (use pinned/local image)"
 
 echo ">>> Start WordPress container (recreate)"
 $DOCKER_COMPOSE -f "$COMPOSE_FILE" up -d --force-recreate wordpress
