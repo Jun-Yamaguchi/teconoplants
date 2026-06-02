@@ -216,6 +216,49 @@
 	text-decoration: underline;
 }
 
+/* Home Instagram feed */
+.home-instagram {
+	padding: clamp(44px, 7vw, 72px) 16px;
+	background: #fff;
+}
+
+.home-instagram__inner {
+	max-width: 960px;
+	margin: 0 auto;
+}
+
+.home-instagram__heading {
+	margin: 0 0 10px;
+	font-size: clamp(1.4rem, 3.4vw, 1.9rem);
+	color: var(--tecono-teal-dark);
+}
+
+.home-instagram__lead {
+	margin: 0 0 20px;
+	color: var(--wp--preset--color--contrast, #262626);
+}
+
+.home-instagram__feed {
+	background: var(--wp--preset--color--base, #fafafa);
+	border: 1px solid var(--wp--preset--color--border, #dbdbdb);
+	border-radius: 12px;
+	padding: clamp(16px, 2.4vw, 24px);
+}
+
+.home-instagram__fallback {
+	margin: 0;
+	text-align: center;
+}
+
+.home-instagram__fallback a {
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.home-instagram__fallback a:hover {
+	text-decoration: underline;
+}
+
 /* Header navigation */
 .site-header .wp-block-navigation a {
 	color: var(--tecono-teal-dark);

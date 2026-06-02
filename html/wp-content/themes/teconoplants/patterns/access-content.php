@@ -14,9 +14,7 @@ $info = teconoplants_shop_info();
 <div class="wp-block-group alignfull access-page">
 	<!-- wp:group {"className":"access-page__inner","layout":{"type":"default"}} -->
 	<div class="wp-block-group access-page__inner">
-		<!-- wp:heading {"level":1,"className":"access-page__title"} -->
-		<h1 class="wp-block-heading access-page__title"><?php esc_html_e( 'アクセス', 'teconoplants' ); ?></h1>
-		<!-- /wp:heading -->
+		<!-- wp:post-title {"level":1,"className":"access-page__title"} /-->
 
 
 
@@ -46,6 +44,10 @@ $info = teconoplants_shop_info();
 					<dd>
 						<a href="<?php echo esc_url( $info['phone_tel'] ); ?>"><?php echo esc_html( $info['phone'] ); ?></a>
 					</dd>
+				</div>
+				<div class="access-page__item">
+					<dt><?php esc_html_e( '利用可能支払い方法', 'teconoplants' ); ?></dt>
+					<dd><?php esc_html_e( 'クレジットカード、PayPay、現金', 'teconoplants' ); ?></dd>
 				</div>
 			</dl>
 			<!-- /wp:html -->

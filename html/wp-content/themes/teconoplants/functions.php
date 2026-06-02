@@ -171,6 +171,48 @@ function teconoplants_site_icons() {
 add_action( 'wp_head', 'teconoplants_site_icons', 5 );
 
 /**
+ * Sync navigation link labels with linked page titles.
+ *
+ * @param array $parsed_block Parsed block.
+ * @return array
+ */
+function teconoplants_sync_nav_link_label_with_page_title( $parsed_block ) {
+	if ( empty( $parsed_block['blockName'] ) || 'core/navigation-link' !== $parsed_block['blockName'] ) {
+		return $parsed_block;
+	}
+
+	$attrs = $parsed_block['attrs'] ?? array();
+	$page  = null;
+
+	if (
+		isset( $attrs['kind'], $attrs['type'], $attrs['id'] ) &&
+		'post-type' === $attrs['kind'] &&
+		'page' === $attrs['type']
+	) {
+		$page = get_post( (int) $attrs['id'] );
+	} elseif ( ! empty( $attrs['url'] ) ) {
+		$path = wp_parse_url( $attrs['url'], PHP_URL_PATH );
+
+		if ( is_string( $path ) ) {
+			$path = trim( $path, '/' );
+			if ( '' !== $path ) {
+				$page = get_page_by_path( $path, OBJECT, 'page' );
+			}
+		}
+	}
+
+	if ( $page instanceof WP_Post && 'page' === $page->post_type ) {
+		$title = get_the_title( $page->ID );
+		if ( '' !== $title ) {
+			$parsed_block['attrs']['label'] = wp_strip_all_tags( $title );
+		}
+	}
+
+	return $parsed_block;
+}
+add_filter( 'render_block_data', 'teconoplants_sync_nav_link_label_with_page_title', 10, 1 );
+
+/**
  * Register block pattern category.
  */
 function teconoplants_pattern_category() {
