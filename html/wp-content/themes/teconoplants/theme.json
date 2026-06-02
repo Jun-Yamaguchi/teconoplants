@@ -1,0 +1,89 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.7/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": true,
+		"color": {
+			"defaultPalette": false,
+			"palette": [
+				{ "color": "#FAFAFA", "name": "背景", "slug": "base" },
+				{ "color": "#FFFFFF", "name": "カード", "slug": "surface" },
+				{ "color": "#262626", "name": "テキスト", "slug": "contrast" },
+				{ "color": "#8E8E8E", "name": "サブテキスト", "slug": "muted" },
+				{ "color": "#DBDBDB", "name": "ボーダー", "slug": "border" },
+				{ "color": "#3D6B4F", "name": "アクセント", "slug": "accent" },
+				{ "color": "#E8F0EA", "name": "アクセント薄", "slug": "accent-soft" },
+				{ "color": "#2B4A48", "name": "店舗グリーン", "slug": "teal" }
+			]
+		},
+		"layout": {
+			"contentSize": "935px",
+			"wideSize": "935px"
+		},
+		"spacing": {
+			"spacingSizes": [
+				{ "name": "XS", "size": "8px", "slug": "xs" },
+				{ "name": "S", "size": "16px", "slug": "sm" },
+				{ "name": "M", "size": "24px", "slug": "md" },
+				{ "name": "L", "size": "40px", "slug": "lg" },
+				{ "name": "XL", "size": "64px", "slug": "xl" }
+			]
+		},
+		"typography": {
+			"fontFamilies": [
+				{
+					"fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, \"Hiragino Sans\", \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+					"name": "System",
+					"slug": "system"
+				}
+			],
+			"fontSizes": [
+				{ "name": "小", "size": "0.8125rem", "slug": "small" },
+				{ "name": "標準", "size": "0.875rem", "slug": "medium" },
+				{ "name": "見出し", "size": "1.75rem", "slug": "large" }
+			]
+		}
+	},
+	"styles": {
+		"color": {
+			"background": "var(--wp--preset--color--base)",
+			"text": "var(--wp--preset--color--contrast)"
+		},
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--system)",
+			"fontSize": "var(--wp--preset--font-size--medium)",
+			"lineHeight": "1.5"
+		},
+		"elements": {
+			"link": {
+				"color": { "text": "var(--wp--preset--color--accent)" },
+				":hover": { "color": { "text": "#2d5239" } }
+			},
+			"heading": {
+				"typography": {
+					"fontWeight": "600",
+					"lineHeight": "1.2"
+				}
+			}
+		},
+		"blocks": {
+			"core/site-title": {
+				"typography": { "fontSize": "1.125rem", "fontWeight": "600" }
+			},
+			"core/navigation": {
+				"typography": { "fontSize": "0.875rem", "fontWeight": "500" }
+			}
+		}
+	},
+	"templateParts": [
+		{ "area": "header", "name": "header", "title": "ヘッダー" },
+		{ "area": "footer", "name": "footer", "title": "フッター" }
+	],
+	"customTemplates": [
+		{
+			"name": "page-access",
+			"title": "アクセス",
+			"postTypes": [ "page" ]
+		}
+	]
+}
