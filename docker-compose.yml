@@ -1,0 +1,64 @@
+# ローカル開発: WordPress + MySQL（+ MailCatcher）
+services:
+  mailcatcher:
+    image: sj26/mailcatcher:latest
+    container_name: tecono-wp-mailcatcher
+    ports:
+      - "${MAILCATCHER_WEB_PORT:-1080}:1080"
+
+  db:
+    image: mysql:8.0
+    container_name: tecono-wp-db
+    restart: unless-stopped
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-wordpress}
+      MYSQL_USER: ${MYSQL_USER:-wordpress}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-wordpress}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  wordpress:
+    image: wordpress:${WORDPRESS_IMAGE_TAG:-latest}
+    container_name: tecono-wp-app
+    restart: unless-stopped
+    ports:
+      - "${WORDPRESS_PORT:-8080}:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: ${MYSQL_USER:-wordpress}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD:-wordpress}
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE:-wordpress}
+      WORDPRESS_SMTP_HOST: mailcatcher
+      WORDPRESS_SMTP_PORT: "1025"
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_MEMORY_LIMIT', '1024M');
+        define('WP_MAX_MEMORY_LIMIT', '1024M');
+        if (getenv_docker('WORDPRESS_SMTP_HOST', '') !== '') {
+        	if (!defined('WORDPRESS_MAIL_SMTP_HOST')) {
+        		define('WORDPRESS_MAIL_SMTP_HOST', getenv_docker('WORDPRESS_SMTP_HOST', ''));
+        	}
+        	if (!defined('WORDPRESS_MAIL_SMTP_PORT')) {
+        		define('WORDPRESS_MAIL_SMTP_PORT', (int) getenv_docker('WORDPRESS_SMTP_PORT', '1025'));
+        	}
+        }
+    volumes:
+      - ${WORDPRESS_HTML_PATH:-./html}:/var/www/html
+      - ./docker/php/99-uploads.ini:/usr/local/etc/php/conf.d/99-uploads.ini:ro
+      - ./docker/apache/zzz-import-timeouts.conf:/etc/apache2/conf-enabled/zzz-import-timeouts.conf:ro
+      - ./docker/apache/zzz-mail-passenv.conf:/etc/apache2/conf-enabled/zzz-mail-passenv.conf:ro
+    depends_on:
+      db:
+        condition: service_healthy
+      mailcatcher:
+        condition: service_started
+
+volumes:
+  db_data:

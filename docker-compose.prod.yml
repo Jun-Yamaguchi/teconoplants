@@ -1,0 +1,33 @@
+# 本番: WordPress のみ（DB はホスト MariaDB/MySQL。Redmine / PlaPro と同様に db-host 経由）
+services:
+  wordpress:
+    image: wordpress:${WORDPRESS_IMAGE_TAG:-latest}
+    container_name: tecono-wp-app-prod
+    restart: always
+    ports:
+      - "${WORDPRESS_HOST_PORT:-8081}:80"
+    environment:
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST:-db-host:3306}
+      WORDPRESS_DB_USER: ${MYSQL_USER}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_MEMORY_LIMIT', '1024M');
+        define('WP_MAX_MEMORY_LIMIT', '1024M');
+        if (getenv_docker('WORDPRESS_HOME', '') !== '') {
+        	define('WP_HOME', getenv_docker('WORDPRESS_HOME', ''));
+        }
+        if (getenv_docker('WORDPRESS_SITEURL', '') !== '') {
+        	define('WP_SITEURL', getenv_docker('WORDPRESS_SITEURL', ''));
+        }
+        if (isset($$_SERVER['HTTP_X_FORWARDED_PROTO']) && $$_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+        	$$_SERVER['HTTPS'] = 'on';
+        }
+    extra_hosts:
+      # ホスト側 DB へ接続。.env の WORDPRESS_DB_HOST=db-host:3306 と併用
+      - "db-host:172.17.0.1"
+    volumes:
+      - ${WORDPRESS_HTML_PATH:-./html}:/var/www/html
+      - ./docker/php/99-uploads.ini:/usr/local/etc/php/conf.d/99-uploads.ini:ro
+      - ./docker/apache/zzz-import-timeouts.conf:/etc/apache2/conf-enabled/zzz-import-timeouts.conf:ro
+      - /etc/localtime:/etc/localtime:ro

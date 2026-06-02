@@ -1,0 +1,6 @@
+# 使い方: cp docker-compose.override.example.yml docker-compose.override.yml
+# .wpress のパスを実際のファイルに合わせて編集
+services:
+  wordpress:
+    volumes:
+      - /YOUR/PATH/backup.wpress:/var/www/html/wp-content/ai1wm-backups/backup.wpress:ro

@@ -1,0 +1,8 @@
+.env
+docker-compose.override.yml
+
+# WordPress 実行時キャッシュのみ除外（テーマ・プラグイン・uploads 等はコミット対象）
+html/wp-content/cache/
+html/wp-content/upgrade/
+html/wp-content/debug.log
+**/.DS_Store
