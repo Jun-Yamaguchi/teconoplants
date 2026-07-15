@@ -1,0 +1,55 @@
+.bdc-admin__section {
+	margin: 24px 0;
+	padding: 20px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	max-width: 720px;
+}
+
+.bdc-admin__section h2 {
+	margin-top: 0;
+	font-size: 1.1em;
+}
+
+.bdc-admin__weekdays {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px 20px;
+	margin: 12px 0 0;
+	padding: 0;
+	border: none;
+}
+
+.bdc-admin__weekday {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.bdc-admin__date-list {
+	margin-top: 12px;
+}
+
+.bdc-admin__date-row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 8px;
+}
+
+.bdc-admin__date-row input[type="date"] {
+	min-width: 180px;
+}
+
+.bdc-admin__add-date {
+	margin-top: 4px;
+}
+
+.bdc-admin__preview {
+	max-width: 360px;
+}
+
+.bdc-admin__preview .bdc-calendar {
+	pointer-events: none;
+}
